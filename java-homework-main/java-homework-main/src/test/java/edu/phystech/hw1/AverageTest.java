@@ -21,7 +21,16 @@ public class AverageTest {
         return (first + second + third) / 3;
     }
 
-
+    private static double average(int... numbers) {
+        if (numbers.length == 0) {
+            return 0;
+        }
+        int sum = 0;
+        for (int i = 0; i < numbers.length; i++) {
+            sum += numbers[i];
+        }
+        return (double) sum / numbers.length;
+    }
 
     @Test
     public void calculateAverage() {
@@ -30,10 +39,8 @@ public class AverageTest {
         Assertions.assertEquals(4d, average(3, 4, 5));
 
 //        Раскомментировать, эти строчки тоже должны работать.
-//        Assertions.assertEquals(0, average());
-//        Assertions.assertEquals(3.5, average(1, 2, 3, 4, 5, 6));
-//        Assertions.assertEquals(6.5, average(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12));
-
-
+        Assertions.assertEquals(0, average());
+        Assertions.assertEquals(3.5, average(1, 2, 3, 4, 5, 6));
+        Assertions.assertEquals(6.5, average(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12));
     }
 }

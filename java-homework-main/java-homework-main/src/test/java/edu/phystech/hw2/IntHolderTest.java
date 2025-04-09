@@ -9,22 +9,52 @@ class IntHolder {
 
     private int value;
 
-    public int getValue() {
-        return 0;
+    public IntHolder(int value) {
+        this.value = value; // тут нужно this из-за конфликта имён
     }
 
-    public void swap(IntHolder other) {}
+    public static IntHolder valueOf(int x) {
+        return new IntHolder(x);
+    }
 
-    public IntHolder(int value) {}
+    public int getValue() {
+        return value;
+    }
 
-    public static IntHolder valueOf(int x) { return null; }
+    public void swap(IntHolder other) {
+        int temp = value;
+        value = other.value;
+        other.value = temp;
+    }
 
-    public IntHolder plus(IntHolder rhv) { return null; }
+    public IntHolder plus(IntHolder rhv) {
+        return new IntHolder(value + rhv.value);
+    }
 
-    public IntHolder minus(IntHolder rhv) { return null; }
+    public IntHolder minus(IntHolder rhv) {
+        return new IntHolder(value - rhv.value);
+    }
 
-    public IntHolder times(IntHolder rhv) { return null; }
-    public IntHolder div(IntHolder rhv) { return null; }
+    public IntHolder times(IntHolder rhv) {
+        return new IntHolder(value * rhv.value);
+    }
+
+    public IntHolder div(IntHolder rhv) {
+        return new IntHolder(value / rhv.value);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof IntHolder ih) {
+            return value == ih.value;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
+    }
 
 }
 

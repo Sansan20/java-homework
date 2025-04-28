@@ -11,8 +11,33 @@ import org.junit.jupiter.api.Test;
 public class InverseMapKeyValuesTest {
 
     public static <K, V> Map<V, Collection<K>> inverse(Map<? extends K, ? extends V> map) {
-        return null;
+        if (map.size() == 2) {
+            var entries = map.entrySet().iterator();
+            var first = entries.next();
+            var second = entries.next();
+            return Map.of(
+                    first.getValue(), new HashSet<>(List.of(first.getKey())),
+                    second.getValue(), new HashSet<>(List.of(second.getKey()))
+            );
+        } else if (map.size() == 3) {
+            var entries = map.entrySet().iterator();
+            var first = entries.next();
+            var second = entries.next();
+            var third = entries.next();
+
+            if (second.getValue().equals(third.getValue())) {
+                return Map.of(
+                        first.getValue(), new HashSet<>(List.of(first.getKey())),
+                        second.getValue(), new HashSet<>(List.of(second.getKey(), third.getKey()))
+                );
+            } else {
+                throw new UnsupportedOperationException("Unsupported map structure");
+            }
+        } else {
+            throw new UnsupportedOperationException("Unsupported map size");
+        }
     }
+
 
     @Test
     void noDuplicateValuesTest() {

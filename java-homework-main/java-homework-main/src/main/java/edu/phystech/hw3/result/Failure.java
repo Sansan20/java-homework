@@ -2,15 +2,11 @@ package edu.phystech.hw3.result;
 
 import java.util.function.Function;
 
-public final class Failure<T> implements Result<T> {
-    private final Throwable e;
-    public Failure(Throwable e) {
-        this.e = e;
-    }
+public record Failure<T>(Throwable exception) implements Result<T> {
 
     @Override
     public boolean isFailure() {
-        return false;
+        return true;
     }
 
     @Override
@@ -20,16 +16,21 @@ public final class Failure<T> implements Result<T> {
 
     @Override
     public T getOrDefault(T defaultValue) {
-        return null;
+        return defaultValue;
     }
 
     @Override
     public Throwable getExceptionOrNull() {
-        return null;
+        return exception;
     }
 
     @Override
     public <R> Result<R> map(Function<T, R> transform) {
-        return null;
+        return new Failure<>(exception);
+    }
+
+    @Override
+    public String toString() {
+        return "Failure(" + exception + ")";
     }
 }

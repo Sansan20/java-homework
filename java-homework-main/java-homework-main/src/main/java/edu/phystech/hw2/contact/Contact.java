@@ -9,7 +9,7 @@ record Contact(String username, String email) implements Comparable<Contact> {
             throw new InvalidContactFieldException("username");
         }
 
-        if (email == null || email.trim().isEmpty()) {
+        if (email == null || email.isBlank()) {
             email = UNKNOWN_EMAIL;
         } else if (!UNKNOWN_EMAIL.equals(email) && !email.matches("^[^\\s@]+@gmail\\.com$")) {
             throw new InvalidContactFieldException("email");
@@ -25,11 +25,7 @@ record Contact(String username, String email) implements Comparable<Contact> {
 
     @Override
     public int compareTo(Contact o) {
-        int len1 = this.username.length();
-        int len2 = o.username.length();
-        if (len1 < len2) return -1;
-        if (len1 > len2) return 1;
-        return 0;
+        return username.length() - o.username.length();
     }
 
 }
